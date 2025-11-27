@@ -1,0 +1,51 @@
+[
+  {
+    "id": "koge",
+    "name": "Sjællands Universitetshospital, Køge",
+    "address": "Lykkebækvej 1, 4600 Køge",
+    "coordinates": [12.1833, 55.4606],
+    "specialties": [
+      "MR",
+      "CT",
+      "Ultralyd",
+      "Røntgen",
+      "MR Rectum",
+      "Mammografi"
+    ]
+  },
+  {
+    "id": "roskilde",
+    "name": "Sjællands Universitetshospital, Roskilde",
+    "address": "Sygehusvej 10, 4000 Roskilde",
+    "coordinates": [12.0889, 55.6389],
+    "specialties": ["MR", "CT", "Ultralyd", "Røntgen", "Mammografi"]
+  },
+  {
+    "id": "holbaek",
+    "name": "Holbæk Sygehus",
+    "address": "Smedelundsgade 60, 4300 Holbæk",
+    "coordinates": [11.7069, 55.7142],
+    "specialties": ["MR", "CT", "Ultralyd", "Røntgen"]
+  },
+  {
+    "id": "naestved",
+    "name": "Næstved Sygehus",
+    "address": "Ringstedgade 61, 4700 Næstved",
+    "coordinates": [11.7667, 55.2328],
+    "specialties": ["MR", "CT", "Ultralyd", "Røntgen", "MR Rectum"]
+  },
+  {
+    "id": "slagelse",
+    "name": "Slagelse Sygehus",
+    "address": "Ingemannsvej 18, 4200 Slagelse",
+    "coordinates": [11.3556, 55.4058],
+    "specialties": ["MR", "CT", "Ultralyd", "Røntgen"]
+  },
+  {
+    "id": "nykobing",
+    "name": "Nykøbing F. Sygehus",
+    "address": "Fjordvej 15, 4800 Nykøbing F",
+    "coordinates": [11.8667, 54.7733],
+    "specialties": ["MR", "CT", "Ultralyd", "Røntgen"]
+  }
+]

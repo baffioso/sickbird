@@ -11,8 +11,15 @@ export const AddressSearch: React.FC<AddressSearchProps> = ({ onSelect }) => {
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState<DawaAddress[]>([]);
   const [isOpen, setIsOpen] = React.useState(false);
+  const justSelected = React.useRef(false);
 
   React.useEffect(() => {
+    // Skip search if user just selected an address
+    if (justSelected.current) {
+      justSelected.current = false;
+      return;
+    }
+
     const timer = setTimeout(async () => {
       if (query.length >= 2) {
         try {
@@ -55,6 +62,7 @@ export const AddressSearch: React.FC<AddressSearchProps> = ({ onSelect }) => {
               key={item.adresse.id}
               className="p-3 hover:bg-blue-50 cursor-pointer border-b border-gray-50 last:border-none transition-colors text-gray-900"
               onClick={() => {
+                justSelected.current = true;
                 onSelect([item.adresse.x, item.adresse.y], item.tekst);
                 setQuery(item.tekst);
                 setIsOpen(false);

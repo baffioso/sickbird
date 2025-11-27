@@ -129,6 +129,22 @@ function App() {
               <div className="flex items-center justify-center p-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
               </div>
+            ) : !userLocation || !selectedSpecialty ? (
+              <div className="flex flex-col items-center justify-center p-8 text-center">
+                <div className="bg-blue-50 rounded-full p-4 mb-4">
+                  <Activity size={32} className="text-blue-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Kom i gang
+                </h3>
+                <p className="text-sm text-gray-600 max-w-sm">
+                  {!userLocation && !selectedSpecialty
+                    ? "Indtast din adresse og vælg en undersøgelse for at finde det rette hospital."
+                    : !userLocation
+                    ? "Indtast din adresse for at se resultater."
+                    : "Vælg en undersøgelse for at se resultater."}
+                </p>
+              </div>
             ) : (
               <>
                 <div className="flex items-center justify-between mb-2 px-1">

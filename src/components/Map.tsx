@@ -5,6 +5,7 @@ import Map, {
   Popup,
   Source,
   Layer,
+  type LayerProps,
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Hospital } from "../types";
@@ -18,7 +19,7 @@ interface MapComponentProps {
   routeGeometry: [number, number][] | null;
 }
 
-const routeLayerStyle = {
+const routeLayerStyle: LayerProps = {
   id: "route",
   type: "line" as const,
   paint: {
@@ -28,13 +29,36 @@ const routeLayerStyle = {
   },
 };
 
-const regionOutlineStyle = {
+const regionOutlineStyle: LayerProps = {
   id: "region-outline",
   type: "line" as const,
   paint: {
-    "line-color": "#59576eff",
-    "line-width": 2,
+    "line-color": "#6f6e72ff",
+    "line-width": 0.1,
     "line-opacity": 0.5,
+  },
+};
+
+const regionFillStyle: LayerProps = {
+  id: "region-fill",
+  type: "fill" as const,
+  paint: {
+    "fill-color": [
+      "match",
+      ["get", "navn"],
+      "Region Hovedstaden",
+      "#3B82F6", // Blue
+      "Region Sjælland",
+      "#10B981", // Green
+      "Region Syddanmark",
+      "#F59E0B", // Amber
+      "Region Midtjylland",
+      "#8B5CF6", // Purple
+      "Region Nordjylland",
+      "#EF4444", // Red
+      "#93C5FD", // Default fallback
+    ],
+    "fill-opacity": 0.15,
   },
 };
 
@@ -64,12 +88,14 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       }}
       style={{ width: "100%", height: "100%" }}
       mapStyle="https://api.maptiler.com/maps/dataviz/style.json?key=MZCjtFvEvhy0zEdhtmhp"
+      onClick={() => onSelectHospital(null)}
     >
       <NavigationControl position="top-right" />
 
       {/* Danish Regions Layer */}
       {regionData && (
         <Source id="regions" type="geojson" data={regionData}>
+          <Layer {...regionFillStyle} />
           <Layer {...regionOutlineStyle} />
         </Source>
       )}

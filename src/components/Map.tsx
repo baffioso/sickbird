@@ -8,7 +8,7 @@ import Map, {
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Hospital } from "../types";
-import { MapPin } from "lucide-react";
+import { User, MapPin } from "lucide-react";
 
 interface MapComponentProps {
   userLocation: [number, number] | null;
@@ -99,7 +99,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           anchor="bottom"
         >
           <div className="relative">
-            <MapPin size={32} fill="#3B82F6" stroke="white" strokeWidth={2} />
+            <User size={40} fill="#3B82F6" stroke="white" strokeWidth={1} />
           </div>
         </Marker>
       )}

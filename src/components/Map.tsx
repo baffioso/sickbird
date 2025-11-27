@@ -28,6 +28,16 @@ const routeLayerStyle = {
   },
 };
 
+const regionOutlineStyle = {
+  id: "region-outline",
+  type: "line" as const,
+  paint: {
+    "line-color": "#59576eff",
+    "line-width": 2,
+    "line-opacity": 0.5,
+  },
+};
+
 export const MapComponent: React.FC<MapComponentProps> = ({
   userLocation,
   hospitals,
@@ -35,6 +45,16 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   onSelectHospital,
   routeGeometry,
 }) => {
+  const [regionData, setRegionData] = React.useState<any>(null);
+
+  // Fetch Danish regions GeoJSON
+  React.useEffect(() => {
+    fetch("https://api.dataforsyningen.dk/regioner?format=geojson")
+      .then((res) => res.json())
+      .then((data) => setRegionData(data))
+      .catch((err) => console.error("Failed to load regions:", err));
+  }, []);
+
   return (
     <Map
       initialViewState={{
@@ -43,9 +63,16 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         zoom: 8,
       }}
       style={{ width: "100%", height: "100%" }}
-      mapStyle="https://demotiles.maplibre.org/style.json"
+      mapStyle="https://api.maptiler.com/maps/dataviz/style.json?key=MZCjtFvEvhy0zEdhtmhp"
     >
       <NavigationControl position="top-right" />
+
+      {/* Danish Regions Layer */}
+      {regionData && (
+        <Source id="regions" type="geojson" data={regionData}>
+          <Layer {...regionOutlineStyle} />
+        </Source>
+      )}
 
       {/* Route Layer */}
       {routeGeometry && routeGeometry.length > 0 && (

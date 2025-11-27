@@ -124,8 +124,17 @@ export const MapComponent: React.FC<MapComponentProps> = ({
           latitude={userLocation[1]}
           anchor="bottom"
         >
-          <div className="relative">
-            <User size={40} fill="#3B82F6" stroke="white" strokeWidth={1} />
+          <div className="relative flex items-center justify-center">
+            {/* Shadow/base */}
+            <div className="absolute -bottom-1 w-8 h-2 bg-black/20 rounded-full blur-sm"></div>
+
+            {/* Main marker pin */}
+            <div className="relative bg-blue-600 rounded-full p-1 shadow-lg">
+              <User size={20} className="text-white" strokeWidth={2.5} />
+            </div>
+
+            {/* Pointer tip */}
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[12px] border-t-blue-600"></div>
           </div>
         </Marker>
       )}

@@ -29,7 +29,7 @@ export const HospitalList: React.FC<HospitalListProps> = ({
       {sorted.map((hospital) => (
         <div
           key={hospital.id}
-          className={`p-4 rounded-xl shadow-md bg-white/90 backdrop-blur-sm cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] border-2 ${
+          className={`p-4 rounded-xl bg-white/90 backdrop-blur-sm cursor-pointer transition-all hover:scale-[1.02] border-2 ${
             selectedId === hospital.id
               ? "border-blue-500 ring-2 ring-blue-200"
               : "border-transparent"

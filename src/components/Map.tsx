@@ -6,7 +6,9 @@ import Map, {
   Source,
   Layer,
   type LayerProps,
+  type MapRef,
 } from "react-map-gl/maplibre";
+import { LngLatBounds } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Hospital } from "../types";
 import { User, MapPin } from "lucide-react";
@@ -69,6 +71,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   onSelectHospital,
   routeGeometry,
 }) => {
+  const mapRef = React.useRef<MapRef>(null);
   const [regionData, setRegionData] = React.useState<any>(null);
 
   // Fetch Danish regions GeoJSON
@@ -79,8 +82,36 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       .catch((err) => console.error("Failed to load regions:", err));
   }, []);
 
+  // Auto-zoom to bounds
+  React.useEffect(() => {
+    if (!mapRef.current) return;
+
+    if (userLocation && hospitals.length > 0) {
+      const bounds = new LngLatBounds();
+
+      // Add user location
+      bounds.extend(userLocation);
+
+      // Add all hospitals
+      hospitals.forEach((h) => bounds.extend(h.coordinates));
+
+      // Determine padding based on screen width (desktop has sidebar)
+      const isDesktop = window.innerWidth >= 768;
+      const padding = isDesktop
+        ? { top: 50, bottom: 50, left: 520, right: 50 }
+        : { top: 50, bottom: 350, left: 50, right: 50 }; // Mobile: more bottom padding for list
+
+      mapRef.current.fitBounds(bounds, {
+        padding,
+        maxZoom: 15,
+        duration: 1000,
+      });
+    }
+  }, [userLocation, hospitals]);
+
   return (
     <Map
+      ref={mapRef}
       initialViewState={{
         longitude: 11.8,
         latitude: 55.4,

@@ -46,7 +46,6 @@ const labelLayerStyle: LayerProps = {
   layout: {
     "text-field": ["get", "name"],
     "text-anchor": "top",
-    "text-offset": [0, 1.2],
     "text-size": 12,
   },
   paint: {

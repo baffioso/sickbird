@@ -15,7 +15,7 @@ export const SpecialtySelect: React.FC<SpecialtySelectProps> = ({
     <div className="relative w-full max-w-md mt-4 z-40">
       <div className="relative">
         <select
-          className="w-full p-4 pl-12 rounded-xl border-none shadow-lg bg-white/90 backdrop-blur-sm text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer transition-all"
+          className="w-full p-4 pl-12 rounded-xl border border-white/50 bg-white/90 backdrop-blur-sm text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer transition-all"
           value={selected}
           onChange={(e) => onSelect(e.target.value)}
         >

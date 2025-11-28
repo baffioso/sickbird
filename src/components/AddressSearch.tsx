@@ -43,7 +43,7 @@ export const AddressSearch: React.FC<AddressSearchProps> = ({ onSelect }) => {
       <div className="relative">
         <input
           type="text"
-          className="w-full p-4 pl-12 rounded-xl border-none shadow-lg bg-white/90 backdrop-blur-sm text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+          className="w-full p-4 pl-12 rounded-xl border border-white/50 bg-white/90 backdrop-blur-sm text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
           placeholder="Indtast din adresse..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -56,7 +56,7 @@ export const AddressSearch: React.FC<AddressSearchProps> = ({ onSelect }) => {
       </div>
 
       {isOpen && results.length > 0 && (
-        <ul className="absolute w-full mt-2 bg-white/95 backdrop-blur-md rounded-xl shadow-xl max-h-60 overflow-y-auto border border-gray-100">
+        <ul className="absolute w-full mt-2 bg-white/95 backdrop-blur-md rounded-xl max-h-60 overflow-y-auto border border-gray-100">
           {results.map((item) => (
             <li
               key={item.adresse.id}

@@ -98,7 +98,7 @@ function App() {
       {/* Floating Sidebar / Panel */}
       <div className="absolute top-0 left-0 h-full w-full md:w-[480px] pointer-events-none z-10 flex flex-col">
         {/* Content Container - Enable pointer events here */}
-        <div className="pointer-events-auto flex-1 flex flex-col p-6 overflow-y-auto bg-gradient-to-r from-white/80 to-transparent md:bg-none">
+        <div className="pointer-events-auto flex-1 flex flex-col p-6 overflow-y-auto bg-white/80 backdrop-blur-md shadow-2xl border-r border-white/50">
           {/* Header */}
           <div className="mb-6 p-6 rounded-2xl bg-white/90 backdrop-blur-md shadow-xl border border-white/50">
             <div className="flex items-center gap-3 mb-2">

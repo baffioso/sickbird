@@ -2,7 +2,6 @@ import * as React from "react";
 import Map, {
   Marker,
   NavigationControl,
-  Popup,
   Source,
   Layer,
   type LayerProps,
@@ -38,6 +37,22 @@ const regionOutlineStyle: LayerProps = {
     "line-color": "#6f6e72ff",
     "line-width": 0.1,
     "line-opacity": 0.5,
+  },
+};
+
+const labelLayerStyle: LayerProps = {
+  id: "hospital-labels",
+  type: "symbol" as const,
+  layout: {
+    "text-field": ["get", "name"],
+    "text-anchor": "top",
+    "text-offset": [0, 1.2],
+    "text-size": 12,
+  },
+  paint: {
+    "text-color": "#111827",
+    "text-halo-color": "#ffffff",
+    "text-halo-width": 2,
   },
 };
 
@@ -109,6 +124,22 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     }
   }, [userLocation, hospitals]);
 
+  const allHospitalsGeoJSON = React.useMemo(() => {
+    return {
+      type: "FeatureCollection" as const,
+      features: hospitals.map((hospital) => ({
+        type: "Feature" as const,
+        geometry: {
+          type: "Point" as const,
+          coordinates: hospital.coordinates,
+        },
+        properties: {
+          name: hospital.name,
+        },
+      })),
+    };
+  }, [hospitals]);
+
   return (
     <Map
       ref={mapRef}
@@ -126,8 +157,8 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       {/* Danish Regions Layer */}
       {regionData && (
         <Source id="regions" type="geojson" data={regionData}>
-          <Layer {...regionFillStyle} />
-          <Layer {...regionOutlineStyle} />
+          <Layer {...regionFillStyle} beforeId="hospital-labels" />
+          <Layer {...regionOutlineStyle} beforeId="hospital-labels" />
         </Source>
       )}
 
@@ -170,44 +201,40 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         </Marker>
       )}
 
-      {hospitals.map((hospital) => (
-        <Marker
-          key={hospital.id}
-          longitude={hospital.coordinates[0]}
-          latitude={hospital.coordinates[1]}
-          anchor="bottom"
-          onClick={(e) => {
-            e.originalEvent.stopPropagation();
-            onSelectHospital(hospital);
-          }}
-        >
-          <div className="cursor-pointer transition-transform hover:scale-110">
-            <MapPin
-              size={32}
-              fill={
-                selectedHospital?.id === hospital.id ? "#DC2626" : "#16A34A"
-              }
-              stroke="white"
-              strokeWidth={2}
-            />
-          </div>
-        </Marker>
-      ))}
+      {hospitals.map((hospital) => {
+        const isSelected = selectedHospital?.id === hospital.id;
+        return (
+          <Marker
+            key={hospital.id}
+            longitude={hospital.coordinates[0]}
+            latitude={hospital.coordinates[1]}
+            anchor="bottom"
+            onClick={(e) => {
+              e.originalEvent.stopPropagation();
+              onSelectHospital(hospital);
+            }}
+            style={{ zIndex: isSelected ? 10 : 1 }}
+          >
+            <div className="cursor-pointer transition-transform hover:scale-110">
+              <MapPin
+                size={32}
+                fill={isSelected ? "#DC2626" : "#16A34A"}
+                stroke="white"
+                strokeWidth={2}
+              />
+            </div>
+          </Marker>
+        );
+      })}
 
-      {selectedHospital && (
-        <Popup
-          longitude={selectedHospital.coordinates[0]}
-          latitude={selectedHospital.coordinates[1]}
-          anchor="top"
-          onClose={() => onSelectHospital(null)}
-          closeOnClick={false}
-        >
-          <div className="p-2 text-gray-900">
-            <h3 className="font-bold text-gray-900">{selectedHospital.name}</h3>
-            <p className="text-sm text-gray-700">{selectedHospital.address}</p>
-          </div>
-        </Popup>
-      )}
+      {/* All Hospitals Label Layer */}
+      <Source
+        id="hospitals-label-source"
+        type="geojson"
+        data={allHospitalsGeoJSON}
+      >
+        <Layer {...labelLayerStyle} />
+      </Source>
     </Map>
   );
 };

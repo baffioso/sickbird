@@ -6,7 +6,6 @@ import { HospitalList } from "./components/HospitalList";
 import { getRouteMetrics, getRoute } from "./services/routing";
 import hospitalsData from "./data/hospitals.json";
 import type { Hospital } from "./types";
-import { Activity } from "lucide-react";
 
 function App() {
   const [userLocation, setUserLocation] = React.useState<
@@ -108,12 +107,16 @@ function App() {
           {/* Header */}
           <div className="mb-6 p-6 rounded-2xl bg-white/90 backdrop-blur-md border border-white/50">
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 text-blue-600">
-                <Activity size={24} />
-              </div>
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-500">
-                CareRoutes
-              </h1>
+              <img
+                src="/care-routes-icon.svg"
+                alt="CareRoutes logo"
+                className="h-10 w-10 shrink-0 object-contain"
+              />
+              <img
+                src="/care-routes-wordmark.svg"
+                alt="CareRoutes"
+                className="h-8 w-auto max-w-[220px] object-contain"
+              />
             </div>
             <p className="text-gray-600 text-sm">
               Indtast en adresse og vælg en undersøgelse for at finde det rette

@@ -115,7 +115,7 @@ function App() {
               <img
                 src="/care-routes-wordmark.svg"
                 alt="CareRoutes"
-                className="h-8 w-auto max-w-[220px] object-contain"
+                className="h-9 w-[240px] max-w-full object-contain"
               />
             </div>
             <p className="text-gray-600 text-sm">

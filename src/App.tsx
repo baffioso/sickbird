@@ -6,7 +6,6 @@ import { HospitalList } from "./components/HospitalList";
 import { getRouteMetrics, getRoute } from "./services/routing";
 import hospitalsData from "./data/hospitals.json";
 import type { Hospital } from "./types";
-import { Activity } from "lucide-react";
 
 function App() {
   const [userLocation, setUserLocation] = React.useState<
@@ -63,6 +62,12 @@ function App() {
     setUserLocation(coords);
   };
 
+  const handleAddressClear = () => {
+    setUserLocation(null);
+    setSelectedHospital(null);
+    setRouteGeometry(null);
+  };
+
   const handleHospitalHover = async (hospital: Hospital | null) => {
     if (!hospital || !userLocation) {
       setRouteGeometry(null);
@@ -101,23 +106,30 @@ function App() {
         <div className="pointer-events-auto flex-1 flex flex-col p-6 overflow-y-auto bg-white/40 backdrop-blur-[2px] border-r border-white/50">
           {/* Header */}
           <div className="mb-6 p-6 rounded-2xl bg-white/90 backdrop-blur-md border border-white/50">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 text-blue-600">
-                <Activity size={24} />
-              </div>
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-500">
-                Hospital Finder
-              </h1>
+            <div className="flex items-center gap-3 mb-2 brand-lockup">
+              <img
+                src="/care-routes-icon.svg"
+                alt="CareRoutes logo"
+                className="shrink-0 brand-icon"
+              />
+              <img
+                src="/care-routes-wordmark.svg"
+                alt="CareRoutes"
+                className="brand-wordmark"
+              />
             </div>
             <p className="text-gray-600 text-sm">
-              Indtast din adresse og vælg en undersøgelse for at finde det rette
+              Indtast en adresse og vælg en undersøgelse for at finde det rette
               hospital.
             </p>
           </div>
 
           {/* Controls */}
           <div className="space-y-4">
-            <AddressSearch onSelect={handleAddressSelect} />
+            <AddressSearch
+              onSelect={handleAddressSelect}
+              onClear={handleAddressClear}
+            />
             <SpecialtySelect
               selected={selectedSpecialty}
               onSelect={setSelectedSpecialty}

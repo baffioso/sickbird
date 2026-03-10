@@ -1,6 +1,6 @@
 import * as React from "react";
 import specialties from "../data/specialties.json";
-import { Stethoscope } from "lucide-react";
+import { Stethoscope, X } from "lucide-react";
 
 interface SpecialtySelectProps {
   selected: string;
@@ -26,6 +26,11 @@ export const SpecialtySelect: React.FC<SpecialtySelectProps> = ({
     setQuery(value);
   };
 
+  const handleClear = () => {
+    setQuery("");
+    onSelect("");
+  };
+
   return (
     <div className="relative w-full max-w-md mt-4 z-40">
       <div className="relative flex flex-col gap-2">
@@ -40,6 +45,16 @@ export const SpecialtySelect: React.FC<SpecialtySelectProps> = ({
             className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
             size={20}
           />
+          {query ? (
+            <button
+              type="button"
+              onClick={handleClear}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              aria-label="Ryd søgning"
+            >
+              <X size={18} />
+            </button>
+          ) : null}
         </div>
 
         <div className="max-h-56 overflow-auto rounded-xl border border-white/50 bg-white/90 backdrop-blur-sm shadow-sm divide-y divide-gray-100/70">

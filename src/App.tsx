@@ -106,16 +106,16 @@ function App() {
         <div className="pointer-events-auto flex-1 flex flex-col p-6 overflow-y-auto bg-white/40 backdrop-blur-[2px] border-r border-white/50">
           {/* Header */}
           <div className="mb-6 p-6 rounded-2xl bg-white/90 backdrop-blur-md border border-white/50">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center gap-3 mb-2 brand-lockup">
               <img
                 src="/care-routes-icon.svg"
                 alt="CareRoutes logo"
-                className="h-10 w-10 shrink-0 object-contain"
+                className="shrink-0 brand-icon"
               />
               <img
                 src="/care-routes-wordmark.svg"
                 alt="CareRoutes"
-                className="h-9 w-[240px] max-w-full object-contain"
+                className="brand-wordmark"
               />
             </div>
             <p className="text-gray-600 text-sm">

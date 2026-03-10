@@ -25,6 +25,24 @@ body {
   overflow: hidden;
 }
 
+.brand-lockup {
+  --brand-icon-size: clamp(36px, 2vw + 22px, 54px);
+  --brand-wordmark-height: clamp(52px, 3vw + 28px, 140px);
+}
+
+.brand-icon {
+  height: var(--brand-icon-size);
+  width: var(--brand-icon-size);
+  object-fit: contain;
+}
+
+.brand-wordmark {
+  height: var(--brand-wordmark-height);
+  width: auto;
+  max-width: min(360px, 75vw);
+  object-fit: contain;
+}
+
 /* Tailwind-like utilities since we are using Vanilla CSS but I used Tailwind classes in the JSX. 
    Wait, I am NOT using Tailwind. I need to replace the Tailwind classes with actual CSS or setup Tailwind.
    The user approved the plan which said "Setup Tailwind CSS (if approved/needed)".
